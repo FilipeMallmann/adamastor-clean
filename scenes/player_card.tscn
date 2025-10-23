@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vxp6n8tatyg6"]
+
+[ext_resource type="Script" uid="uid://dfwk5qbbedsgi" path="res://scripts/player_card.gd" id="1_psvab"]
+
+[node name="PlayerCard" type="Node2D"]
+script = ExtResource("1_psvab")
