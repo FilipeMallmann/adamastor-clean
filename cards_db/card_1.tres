@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://c80lqf64nspgi"]
+
+[ext_resource type="Script" uid="uid://dy8bl3w1bw65h" path="res://scripts/card_data.gd" id="1_4ttst"]
+
+[resource]
+script = ExtResource("1_4ttst")
+name = "No lessons lernt"
+number = 1
+navigation = 2
+weather = 0
+traumas = Array[int]([1, 0])
+permanent_trauma = 0
+skill = Array[String]([])
+island_resource = ""
+metadata/_custom_type_script = "uid://dy8bl3w1bw65h"
