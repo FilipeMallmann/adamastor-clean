@@ -4,14 +4,18 @@ class_name GameStateManager
 enum GameState { Setup, Sunrise, Action, Event, Sundown, GameOver }
 
 var actual_state := GameState.Setup
-var _weather_service : WeatherManager
-var _trauma_service : TraumaManager
-var _event_service : EventManager
+static var weather_service : WeatherManager
+static var trauma_service : TraumaManager
+static var event_service : EventManager
+static var queue_service : QueueManager
+static var morale_deck_service : MoraleDeckManager
 
 func _init() -> void:
-	_trauma_service = TraumaManager.new()
-	_weather_service = WeatherManager.new()
-	_event_service = EventManager.new()
+	trauma_service = TraumaManager.new()
+	weather_service = WeatherManager.new()
+	event_service = EventManager.new()
+	queue_service = QueueManager.new()
+	morale_deck_service = MoraleDeckManager.new()
 	
 func game_loop() -> void:
 	pass

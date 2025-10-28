@@ -6,5 +6,9 @@ func enter() -> void:
 	_check_weather()
 	transition_to(GameStateManager.GameState.Action)
 
-func _add_card(): print("Added 1 card.")
-func _check_weather(): print("Weather checked.")
+func _add_card(): 
+	var card = GameStateManager.morale_deck_service.draw_card()
+	GameStateManager.queue_service.add_card(card)
+
+func _check_weather(): 
+	print("Weather checked.")
