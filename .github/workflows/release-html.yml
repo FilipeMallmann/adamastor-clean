@@ -37,6 +37,8 @@ jobs:
         run: |
           mkdir -p $HOME/godot
           unzip godot_headless.zip -d $HOME/godot
+          cd $HOME/godot
+          ls -al
           mv $HOME/godot/Godot_v4.4-stable_linux.x86_64.headless $HOME/godot/godot
 
       # -----------------------
