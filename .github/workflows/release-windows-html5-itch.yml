@@ -18,7 +18,7 @@ jobs:
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
-          godot-version: "4.4"     # corresponde a v4.4.stable.official [4c311cbee]
+          godot-version: "4.4.0"     # corresponde a v4.4.stable.official [4c311cbee]
           enable-mono: false
           export-templates: true
 
@@ -82,3 +82,4 @@ jobs:
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
         run: |
           ./butler/butler push Adamastor_HTML5.zip Mallmann/Adamastor-The-Card-Game:html5
+
