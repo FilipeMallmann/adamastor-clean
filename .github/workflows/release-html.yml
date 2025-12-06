@@ -1,0 +1,49 @@
+name: Release Export (HTML5)
+
+on:
+  push:
+    tags:
+      - "release-*"
+    branches:
+      - main
+
+jobs:
+  export-html5:
+    name: Export HTML5 Build
+    runs-on: ubuntu-latest
+
+    steps:
+      # -----------------------
+      # Checkout do repositório
+      # -----------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------
+      # Instala Godot 4.4.stable (4c311cbee)
+      # -----------------------
+      - name: Setup Godot 4.4.stable
+        uses: firebelley/setup-godot@v2
+        with:
+          version: "4.4.stable.official"
+          release: "4c311cbee"
+          use-dotnet: false
+          export-templates: true
+
+      # ------------------------------------------------
+      # Export HTML5 (export preset deve existir no projeto)
+      # ------------------------------------------------
+      - name: Export HTML5
+        run: |
+          mkdir -p build/html5
+          godot --headless --verbose \
+            --export-release "HTML5" build/html5/index.html
+
+      # -----------------------
+      # Publicar artefato
+      # -----------------------
+      - name: Upload HTML5 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: html5-export
+          path: build/html5
