@@ -37,7 +37,8 @@ jobs:
         run: |
           mkdir -p $HOME/godot
           unzip godot_headless.zip -d $HOME/godot
-          mv $HOME/godot/Godot_v4.4-stable_linux.x86_64.headless $HOME/godot/godot
+          ls -al $HOME/godot/Godot_v4.4-stable_linux.x86_64
+          mv $HOME/godot/Godot_v4.4-stable_linux.x86_64 $HOME/godot/godot
 
       # -----------------------
       # Instalar Export Templates
