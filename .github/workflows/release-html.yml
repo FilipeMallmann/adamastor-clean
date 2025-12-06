@@ -24,12 +24,12 @@ jobs:
       # -----------------------
       - name: Download Godot 4.4.stable Headless
         run: |
-          GODOT_VERSION="4.4"
+          GODOT_VERSION="4.4-stable"
           GODOT_HASH="4c311cbee"
-
-          wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/${GODOT_VERSION}.stable.official.${GODOT_HASH}/Godot_v${GODOT_VERSION}-stable_linux.x86_64.headless.zip -O godot_headless.zip
-          wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/${GODOT_VERSION}.stable.official.${GODOT_HASH}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz -O templates.tpz
-
+          wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip -O godot_headless.zip
+          wget  https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz -O templates.tpz
+        #   wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/${GODOT_VERSION}.stable.official.${GODOT_HASH}/Godot_v${GODOT_VERSION}-stable_linux.x86_64.headless.zip -O godot_headless.zip
+        #  wget https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/${GODOT_VERSION}.stable.official.${GODOT_HASH}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz -O templates.tpz
       # -----------------------
       # Instalar Godot Headless
       # -----------------------
@@ -54,7 +54,7 @@ jobs:
         run: |
           mkdir -p build/html5
           $HOME/godot/godot --headless --verbose \
-            --export-release "HTML5" build/html5/index.html
+            --export-release "Web" build/html5/index.html
 
       # -----------------------
       # Publicar artefato
