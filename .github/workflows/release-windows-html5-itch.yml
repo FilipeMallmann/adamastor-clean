@@ -1,9 +1,9 @@
-﻿name: Build Windows & HTML5 and Deploy to itch.io
+name: Build Windows & HTML5 and Deploy to itch.io
 
 on:
   push:
     tags:
-      - "v*" # exemplo: v1.0.0
+      - "v*"   # exemplo: v1.0.0
 
 jobs:
   build:
@@ -14,26 +14,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # 2. Setup Godot 4.4+ (instala engine + export templates automaticamente)
+      # 2. Instalar Godot v4.4.stable (versão exata do seu projeto)
       - name: Setup Godot
         uses: chickensoft-games/setup-godot@v2
         with:
-          godot-version: "4.0.0" # ou "4.4.1", altere se quiser
-          enable-mono: false # seu projeto usa GDScript
+          godot-version: "4.4"     # corresponde a v4.4.stable.official [4c311cbee]
+          enable-mono: false
+          export-templates: true
 
-      # 3. Exportar Windows
+      # 3. Diagnóstico (opcional, mas útil)
+      - name: Check Godot version
+        run: |
+          echo "Godot binary:"
+          which godot
+          godot --version
+
+      # 4. Exportar Windows
       - name: Export Windows Build
         run: |
           mkdir -p build/windows
           godot --headless --export-release "Windows Desktop" build/windows/Adamastor.exe
 
-      # 4. Exportar HTML5
+      # 5. Exportar HTML5
       - name: Export HTML5 Build
         run: |
           mkdir -p build/html5
           godot --headless --export-release "HTML5" build/html5/index.html
 
-      # 5. Compactar builds
+      # 6. Compactar builds
       - name: Zip Windows Build
         run: |
           cd build/windows
@@ -44,7 +52,7 @@ jobs:
           cd build/html5
           zip -r ../../Adamastor_HTML5.zip .
 
-      # 6. Criar Release no GitHub com ambas as builds
+      # 7. Criar o Release no GitHub
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -54,24 +62,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 7. Instalar butler
+      # 8. Instalar Butler
       - name: Install Butler
         run: |
           curl -L https://broth.itch.ovh/butler/linux-amd64/head/download -o butler.zip
           unzip butler.zip -d butler
           chmod +x butler/butler
 
-      # 8. Upload Windows para o itch.io
+      # 9. Deploy Windows → itch.io
       - name: Deploy Windows to itch.io
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
         run: |
           ./butler/butler push Adamastor_Windows.zip Mallmann/Adamastor-The-Card-Game:windows
 
-      # 9. Upload HTML5 para o itch.io
+      # 10. Deploy HTML5 → itch.io
       - name: Deploy HTML5 to itch.io
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
         run: |
           ./butler/butler push Adamastor_HTML5.zip Mallmann/Adamastor-The-Card-Game:html5
-
