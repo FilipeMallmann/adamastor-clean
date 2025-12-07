@@ -63,3 +63,38 @@ jobs:
         with:
           name: html5-export
           path: build/html5
+
+      # -----------------------
+      # Compactar artefato HTML5
+      # -----------------------
+      - name: Zip HTML5 export
+        run: |
+          cd build
+          zip -r html5-export.zip html5
+
+      # -----------------------
+      # Criar Release automática
+      # -----------------------
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      # -----------------------
+      # Anexar o ZIP à Release
+      # -----------------------
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/html5-export.zip
+          asset_name: html5-export.zip
+          asset_content_type: application/zip
