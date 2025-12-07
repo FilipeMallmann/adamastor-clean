@@ -55,7 +55,7 @@ jobs:
         run: |
           mkdir -p build/html5
           $HOME/godot/godot --headless --verbose \
-            --export-release "Web" build/html5/index.html
+            --export-release "HTML5" build/html5/index.html
 
       # -----------------------
       # Publicar artefato
