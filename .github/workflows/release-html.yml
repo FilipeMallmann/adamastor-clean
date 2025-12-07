@@ -7,74 +7,55 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   export-html5:
     name: Export HTML5 Build
     runs-on: ubuntu-latest
 
     steps:
-      # -----------------------
-      # Checkout do repositório
-      # -----------------------
+      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # -----------------------
-      # Download Godot Headless + templates
-      # -----------------------
+      # Download Godot + templates
       - name: Download Godot 4.4.stable Headless + Templates
         run: |
           GODOT_VERSION="4.4-stable"
           wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip -O godot_headless.zip
-          wget  https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz -O templates.tpz
-      # -----------------------
-      # Instalar Godot Headless
-      # -----------------------
+          wget https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz -O templates.tpz
+
+      # Install Godot Headless
       - name: Install Godot
         run: |
           mkdir -p $HOME/godot
           unzip godot_headless.zip -d $HOME/godot
-          ls -al $HOME/godot/Godot_v4.4-stable_linux.x86_64
           mv $HOME/godot/Godot_v4.4-stable_linux.x86_64 $HOME/godot/godot
 
-      # -----------------------
-      # Instalar Export Templates
-      # -----------------------
+      # Install Export Templates
       - name: Install Export Templates
         run: |
           mkdir -p ~/.local/share/godot/export_templates/4.4.stable
           unzip -j templates.tpz -d ~/.local/share/godot/export_templates/4.4.stable
-          ls -al ~/.local/share/godot/export_templates/4.4.stable
 
-      # -----------------------
-      # Executar Export HTML5
-      # -----------------------
+      # Export HTML5
       - name: Export HTML5
         run: |
           mkdir -p build/html5
           $HOME/godot/godot --headless --verbose \
             --export-release "HTML5" build/html5/index.html
 
-      # -----------------------
-      # Publicar artefato
-      # -----------------------
-      - name: Upload HTML5 artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: html5-export
-          path: build/html5
-
-      # -----------------------
-      # Compactar artefato HTML5
-      # -----------------------
+      # Zip artifact for Release
       - name: Zip HTML5 export
         run: |
           cd build
           zip -r html5-export.zip html5
 
-      # -----------------------
-      # Criar Release automática
-      # -----------------------
+      # Create GitHub Release
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -86,9 +67,7 @@ jobs:
           draft: false
           prerelease: false
 
-      # -----------------------
-      # Anexar o ZIP à Release
-      # -----------------------
+      # Upload ZIP to Release
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
@@ -98,3 +77,25 @@ jobs:
           asset_path: ./build/html5-export.zip
           asset_name: html5-export.zip
           asset_content_type: application/zip
+
+      # Upload artifact to GitHub Pages
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/html5
+
+  # -------------------------
+  # Deploy job for GitHub Pages
+  # -------------------------
+  deploy:
+    needs: export-html5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
