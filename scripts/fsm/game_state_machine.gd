@@ -1,41 +1,41 @@
-# res://scripts/fsm/GameStateMachine.gd
+## GameStateMachine — Controlador FSM. Regista e transita entre todos os estados do jogo.
 extends Node
+
 class_name GameStateMachine
 
 var current_state: State
 
-
 var states := {}
 
 func _ready() -> void:
-	# Instantiate and register all states
-	states[GameStateManager.GameState.Setup] = preload("res://scripts/fsm/setup_state.gd").new()
-	#states["SunRise"] = preload("res://scripts/fsm/SunRiseState.gd").new()
-	#states["Actions"] = preload("res://scripts/fsm/ActionsState.gd").new()
-	#states["Event"] = preload("res://scripts/fsm/EventState.gd").new()
-	#states["SunDown"] = preload("res://scripts/fsm/SunDownState.gd").new()
+	states[GameStateManager.GameState.Setup]   = preload("res://scripts/fsm/setup_state.gd").new()
+	states[GameStateManager.GameState.Sunrise] = preload("res://scripts/fsm/sunrise_state.gd").new()
+	states[GameStateManager.GameState.Action]  = preload("res://scripts/fsm/action_state.gd").new()
+	states[GameStateManager.GameState.Event]   = preload("res://scripts/fsm/event_state.gd").new()
+	states[GameStateManager.GameState.Sundown] = preload("res://scripts/fsm/sundown_state.gd").new()
+	states[GameStateManager.GameState.GameOver] = preload("res://scripts/fsm/game_over_state.gd").new()
+	states[GameStateManager.GameState.GameWon]  = preload("res://scripts/fsm/game_won_state.gd").new()
 
-	# Assign parent references
 	for s in states.values():
 		add_child(s)
 		s.state_machine = self
-		s.visible = false
 
 	change_state(GameStateManager.GameState.Setup)
 
-func change_state(new_state_name: GameStateManager.GameState) -> void:
+
+func change_state(new_state: GameStateManager.GameState) -> void:
 	if current_state:
 		current_state.exit()
-		current_state.visible = false
 
-	current_state = states.get(new_state_name)
+	current_state = states.get(new_state)
 	if not current_state:
-		push_warning("Unknown state: %s" % new_state_name)
+		push_warning("GameStateMachine: estado desconhecido: %s" % new_state)
 		return
 
-	current_state.visible = true
+	GameStateManager.actual_state = new_state
 	current_state.enter()
-	print("State changed to: ", new_state_name)
+	print("FSM → %s" % GameStateManager.GameState.keys()[new_state])
+
 
 func _process(delta: float) -> void:
 	if current_state:
