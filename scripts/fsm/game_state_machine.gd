@@ -3,6 +3,8 @@ extends Node
 
 class_name GameStateMachine
 
+signal state_changed(new_state: GameStateManager.GameState)
+
 var current_state: State
 
 var states := {}
@@ -35,6 +37,7 @@ func change_state(new_state: GameStateManager.GameState) -> void:
 	GameStateManager.actual_state = new_state
 	current_state.enter()
 	print("FSM → %s" % GameStateManager.GameState.keys()[new_state])
+	state_changed.emit(new_state)
 
 
 func _process(delta: float) -> void:

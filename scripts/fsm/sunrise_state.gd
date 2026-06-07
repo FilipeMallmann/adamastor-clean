@@ -16,6 +16,7 @@ func enter() -> void:
 
 	# Na primeira ronda não se compra carta
 	if not GameStateManager.is_first_round:
+		GameStateManager.current_day += 1
 		var new_card = deck.draw_top()
 		if new_card:
 			queue.add_card(new_card)

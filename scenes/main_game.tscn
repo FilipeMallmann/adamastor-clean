@@ -1,9 +1,452 @@
-[gd_scene load_steps=2 format=3 uid="uid://do1e0j6n0r7d4"]
+[gd_scene load_steps=7 format=3 uid="uid://do1e0j6n0r7d4"]
 
-[ext_resource type="Texture2D" uid="uid://dh7kwkrnl42xc" path="res://icon.svg" id="1_s3esy"]
+[ext_resource type="Script" uid="uid://cx8m2bktv4y1a" path="res://scripts/ui/game_table.gd" id="1_tbl"]
+[ext_resource type="Script" uid="uid://ueuwl5xqe13k" path="res://scripts/managers/game_state_manager.gd" id="2_gsm"]
+[ext_resource type="Script" uid="uid://b5v442ftxqdyb" path="res://scripts/fsm/game_state_machine.gd" id="3_fsm"]
 
-[node name="MainGame" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.08, 0.12, 0.08, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.5, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(466, 192)
-texture = ExtResource("1_s3esy")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2"]
+bg_color = Color(0.07, 0.09, 0.13, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.35, 0.55, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3"]
+bg_color = Color(0.09, 0.1, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.35, 0.6, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="MainGame" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_tbl")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.07, 0.08, 0.12, 1)
+mouse_filter = 2
+
+[node name="MapArea" type="Panel" parent="."]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1147.0
+offset_bottom = 355.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="RestartBtn" type="Button" parent="MapArea"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 90.0
+offset_bottom = 33.0
+text = "Restart"
+
+[node name="MainMenuBtn" type="Button" parent="MapArea"]
+offset_left = 95.0
+offset_top = 5.0
+offset_right = 205.0
+offset_bottom = 33.0
+text = "Main Menu"
+
+[node name="MapLabel" type="Label" parent="MapArea"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 8.0
+offset_right = 60.0
+offset_bottom = 30.0
+text = "MAP AREA"
+horizontal_alignment = 1
+modulate = Color(0.5, 0.5, 0.5, 0.4)
+mouse_filter = 2
+
+[node name="HUD" type="Panel" parent="."]
+offset_left = 5.0
+offset_top = 360.0
+offset_right = 205.0
+offset_bottom = 643.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2")
+
+[node name="VBox" type="VBoxContainer" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+theme_override_constants/separation = 8
+
+[node name="DayLabel" type="Label" parent="HUD/VBox"]
+text = "Day 1"
+theme_override_font_sizes/font_size = 18
+mouse_filter = 2
+
+[node name="Separator" type="HSeparator" parent="HUD/VBox"]
+modulate = Color(0.4, 0.45, 0.65, 1)
+
+[node name="ActionsLabel" type="Label" parent="HUD/VBox"]
+text = "Actions: --"
+mouse_filter = 2
+
+[node name="MoraleLabel" type="Label" parent="HUD/VBox"]
+text = "Morale: --"
+mouse_filter = 2
+
+[node name="RemainingLabel" type="Label" parent="HUD/VBox"]
+text = "Discard: --"
+mouse_filter = 2
+
+[node name="HSep2" type="HSeparator" parent="HUD/VBox"]
+modulate = Color(0.4, 0.45, 0.65, 0.5)
+
+[node name="WeatherLabel" type="Label" parent="HUD/VBox"]
+text = "Weather: --"
+theme_override_font_sizes/font_size = 11
+mouse_filter = 2
+
+[node name="PhaseLabel" type="Label" parent="HUD/VBox"]
+text = "Phase: --"
+theme_override_font_sizes/font_size = 11
+mouse_filter = 2
+
+[node name="TraumaLabel" type="Label" parent="HUD/VBox"]
+text = "Traumas: 0"
+theme_override_font_sizes/font_size = 11
+mouse_filter = 2
+
+[node name="SkillsLabel" type="Label" parent="HUD/VBox"]
+text = "Skills: 0"
+theme_override_font_sizes/font_size = 11
+mouse_filter = 2
+
+[node name="PositionLabel" type="Label" parent="HUD/VBox"]
+text = "Pos: --"
+theme_override_font_sizes/font_size = 11
+mouse_filter = 2
+
+[node name="CenterPanel" type="Control" parent="."]
+offset_left = 210.0
+offset_top = 360.0
+offset_right = 945.0
+offset_bottom = 643.0
+mouse_filter = 2
+
+[node name="AdventureRow" type="HBoxContainer" parent="CenterPanel"]
+offset_right = 735.0
+offset_bottom = 135.0
+theme_override_constants/separation = 5
+
+[node name="AdventureSlot0" type="Panel" parent="CenterPanel/AdventureRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="AdventureSlot1" type="Panel" parent="CenterPanel/AdventureRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="AdventureSlot2" type="Panel" parent="CenterPanel/AdventureRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="HandRow" type="HBoxContainer" parent="CenterPanel"]
+offset_top = 140.0
+offset_right = 735.0
+offset_bottom = 283.0
+theme_override_constants/separation = 5
+
+[node name="HandSlot0" type="Panel" parent="CenterPanel/HandRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot0/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot0/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot0/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="HandSlot1" type="Panel" parent="CenterPanel/HandRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot1/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot1/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot1/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="HandSlot2" type="Panel" parent="CenterPanel/HandRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot2/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot2/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot2/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="HandSlot3" type="Panel" parent="CenterPanel/HandRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot3/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot3/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot3/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="HandSlot4" type="Panel" parent="CenterPanel/HandRow"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/separation = 2
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot4/VBox"]
+size_flags_vertical = 3
+expand_mode = 4
+stretch_mode = 6
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot4/VBox"]
+custom_minimum_size = Vector2(0, 18)
+text = ""
+clip_contents = true
+mouse_filter = 2
+
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot4/VBox"]
+custom_minimum_size = Vector2(0, 16)
+text = ""
+mouse_filter = 2
+
+[node name="ActionButtons" type="VBoxContainer" parent="."]
+offset_left = 950.0
+offset_top = 360.0
+offset_right = 1147.0
+offset_bottom = 643.0
+theme_override_constants/separation = 8
+
+[node name="DrawBtn" type="Button" parent="ActionButtons"]
+size_flags_vertical = 3
+text = "Draw"
+
+[node name="SwapBtn" type="Button" parent="ActionButtons"]
+size_flags_vertical = 3
+text = "Swap"
+
+[node name="NavigateBtn" type="Button" parent="ActionButtons"]
+size_flags_vertical = 3
+text = "Navigate"
+
+[node name="EndTurnBtn" type="Button" parent="ActionButtons"]
+size_flags_vertical = 3
+text = "End Turn"
+
+[node name="GameStateManager" type="Node" parent="."]
+script = ExtResource("2_gsm")
+
+[node name="GameStateMachine" type="Node" parent="."]
+script = ExtResource("3_fsm")

@@ -105,7 +105,7 @@ static func from_dict(data: Dictionary) -> CardData:
 		_: card.threat_icon = ThreatIcon.NONE
 
 	# Trauma type
-	var trauma_str: String = data.get("trauma_type", "")
+	var trauma_str: String = str(data.get("trauma_type", "")) if data.get("trauma_type") != null else ""
 	match trauma_str:
 		"unrest": card.trauma_type = ThreatIcon.UNREST
 		"disease": card.trauma_type = ThreatIcon.DISEASE
@@ -113,7 +113,7 @@ static func from_dict(data: Dictionary) -> CardData:
 		_: card.trauma_type = ThreatIcon.NONE
 
 	# Skill type
-	var skill_str: String = data.get("skill_type", "")
+	var skill_str: String = str(data.get("skill_type", "")) if data.get("skill_type") != null else ""
 	match skill_str:
 		"land_bonus_plus_1_card": card.skill_type = SkillType.LAND_BONUS_PLUS_1_CARD
 		"navigation_plus_1": card.skill_type = SkillType.NAVIGATION_PLUS_1

@@ -48,6 +48,7 @@ static var gained_skills: Array = []  # Array[CardData]
 static var game_over_pending: bool = false
 static var game_over_reason: GameOverReason = GameOverReason.MoraleDepleted
 static var game_won_pending: bool = false
+static var current_day: int = 1
 
 # ---------------------------------------------------------------------------
 # Godot lifecycle
@@ -86,6 +87,7 @@ func start_game(p_difficulty: Difficulty = Difficulty.Normal,
 	game_over_pending = false
 	game_won_pending = false
 	gained_skills.clear()
+	current_day = 1
 
 
 # ---------------------------------------------------------------------------

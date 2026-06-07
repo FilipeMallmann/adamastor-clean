@@ -36,6 +36,7 @@ func enter() -> void:
 			hand.add(card)
 
 	GameStateManager.is_first_round = true
+	GameStateManager.current_day = 1
 	print("[Setup] Mapa configurado. Deck: %d cartas. Adventure Row: %d. Mão: %d." % [
 		deck.get_deck_size(), queue.get_size(), hand.get_size()
 	])

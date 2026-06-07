@@ -129,6 +129,63 @@ func check_land_bonus() -> void:
 		land_reached.emit(pawn_position, draw_count)
 
 
+## Retorna todos os espaços de cartas reveladas, em ordem de travessia.
+func _get_ordered_spaces() -> Array:
+	var result = []
+	for card in map_cards:
+		if card.get("is_revealed", false):
+			for space in card.get("spaces", []):
+				result.append(space)
+	return result
+
+
+## Retorna espaços à frente do pawn_position (excluindo a posição actual).
+## Apenas inclui espaços em cartas reveladas.
+func get_spaces_ahead() -> Array:
+	var all_spaces = _get_ordered_spaces()
+	var ahead = []
+	var passed = false
+	for space in all_spaces:
+		if space.get("id") == pawn_position:
+			passed = true
+			continue
+		if passed:
+			ahead.append(space)
+	return ahead
+
+
+## Calcula o caminho máximo percorrível com os nav_points dados.
+## Retorna array de IDs de espaços na ordem de traversal.
+func get_reachable_path(nav_points: int) -> Array:
+	var ahead = get_spaces_ahead()
+	var path = []
+	var remaining = nav_points
+	for space in ahead:
+		var cost = _get_space_cost(space) + _weather_modifier
+		if remaining >= cost:
+			remaining -= cost
+			path.append(space.get("id"))
+		else:
+			break
+	return path
+
+
+## Texto descritivo da posição actual (para o HUD).
+func get_position_text() -> String:
+	var all_spaces = _get_ordered_spaces()
+	var total = all_spaces.size()
+	var current_idx = -1
+	for i in total:
+		if all_spaces[i].get("id") == pawn_position:
+			current_idx = i
+			break
+	var space = _get_space_by_id(pawn_position)
+	var type_name = NavigationHexagonType.keys()[space.get("type", 0)] if not space.is_empty() else "?"
+	if current_idx >= 0:
+		return "%d/%d [%s]" % [current_idx + 1, total, type_name]
+	return "? [%s]" % type_name
+
+
 ## Número de nuvens negras no espaço actual (para cálculo meteorológico).
 func get_current_space_black_clouds() -> int:
 	var space = _get_space_by_id(pawn_position)
