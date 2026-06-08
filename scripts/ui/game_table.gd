@@ -19,6 +19,9 @@ extends Control
 @onready var adventure_row: HBoxContainer = $CenterPanel/AdventureRow
 @onready var hand_row: HBoxContainer      = $CenterPanel/HandRow
 
+@onready var card_preview: Control      = $CardPreview
+@onready var preview_texture: TextureRect = $CardPreview/PreviewCard
+
 @onready var draw_btn: Button     = $ActionButtons/DrawBtn
 @onready var swap_btn: Button     = $ActionButtons/SwapBtn
 @onready var navigate_btn: Button = $ActionButtons/NavigateBtn
@@ -55,11 +58,19 @@ func _collect_card_slots() -> void:
 		var slot = adventure_row.get_child(i)
 		adventure_slots.append(slot)
 		slot.gui_input.connect(_on_slot_input.bind("adventure", i))
+		var art = slot.find_child("CardArt", true, false) as TextureRect
+		if art:
+			art.mouse_entered.connect(_on_card_art_hover.bind(art))
+			art.mouse_exited.connect(_on_card_art_hover_end)
 
 	for i in range(5):
 		var slot = hand_row.get_child(i)
 		hand_slots.append(slot)
 		slot.gui_input.connect(_on_slot_input.bind("hand", i))
+		var art = slot.find_child("CardArt", true, false) as TextureRect
+		if art:
+			art.mouse_entered.connect(_on_card_art_hover.bind(art))
+			art.mouse_exited.connect(_on_card_art_hover_end)
 
 
 func _connect_game_signals() -> void:
@@ -271,10 +282,9 @@ func _update_hand(hand: Array) -> void:
 
 
 func _fill_card_slot(slot: Panel, card: CardData) -> void:
-	var vbox = slot.get_child(0)
-	var art: TextureRect = vbox.get_node("CardArt")
-	var title_lbl: Label  = vbox.get_node("CardTitle")
-	var nav_lbl: Label    = vbox.get_node("CardNav")
+	var art: TextureRect = slot.find_child("CardArt", true, false)
+	var title_lbl: Label  = slot.find_child("CardTitle", true, false)
+	var nav_lbl: Label    = slot.find_child("CardNav", true, false)
 	if card:
 		title_lbl.text = card.title
 		nav_lbl.text   = "Nav: %d" % card.nav_value
@@ -331,6 +341,20 @@ func _update_slot_highlights() -> void:
 			s.modulate = Color(0.5, 0.9, 1.3)
 		else:
 			s.modulate = Color.WHITE
+
+# ---------------------------------------------------------------------------
+# Hover preview de carta
+# ---------------------------------------------------------------------------
+
+func _on_card_art_hover(art: TextureRect) -> void:
+	if art.texture == null:
+		return
+	preview_texture.texture = art.texture
+	card_preview.visible = true
+
+
+func _on_card_art_hover_end() -> void:
+	card_preview.visible = false
 
 # ---------------------------------------------------------------------------
 # Auxiliares FSM

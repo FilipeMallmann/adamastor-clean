@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://do1e0j6n0r7d4"]
+[gd_scene format=3 uid="uid://do1e0j6n0r7d4"]
 
 [ext_resource type="Script" uid="uid://cx8m2bktv4y1a" path="res://scripts/ui/game_table.gd" id="1_tbl"]
 [ext_resource type="Script" uid="uid://ueuwl5xqe13k" path="res://scripts/managers/game_state_manager.gd" id="2_gsm"]
@@ -40,39 +40,47 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="MainGame" type="Control"]
+[node name="MainGame" type="Control" unique_id=850712057]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_tbl")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=657286366]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.07, 0.08, 0.12, 1)
 mouse_filter = 2
+color = Color(0.07, 0.08, 0.12, 1)
 
-[node name="MapArea" type="Panel" parent="."]
+[node name="MapArea" type="Panel" parent="." unique_id=211792588]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 1147.0
-offset_bottom = 355.0
+offset_right = 1275.0
+offset_bottom = 320.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 
-[node name="RestartBtn" type="Button" parent="MapArea"]
+[node name="RestartBtn" type="Button" parent="MapArea" unique_id=1290572139]
+layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 90.0
 offset_bottom = 33.0
 text = "Restart"
 
-[node name="MainMenuBtn" type="Button" parent="MapArea"]
+[node name="MainMenuBtn" type="Button" parent="MapArea" unique_id=637385952]
+layout_mode = 0
 offset_left = 95.0
 offset_top = 5.0
 offset_right = 205.0
 offset_bottom = 33.0
 text = "Main Menu"
 
-[node name="MapLabel" type="Label" parent="MapArea"]
+[node name="MapLabel" type="Label" parent="MapArea" unique_id=1706471064]
+modulate = Color(0.5, 0.5, 0.5, 0.4)
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -60.0
@@ -81,17 +89,17 @@ offset_right = 60.0
 offset_bottom = 30.0
 text = "MAP AREA"
 horizontal_alignment = 1
-modulate = Color(0.5, 0.5, 0.5, 0.4)
-mouse_filter = 2
 
-[node name="HUD" type="Panel" parent="."]
+[node name="HUD" type="Panel" parent="." unique_id=218929763]
+layout_mode = 0
 offset_left = 5.0
-offset_top = 360.0
+offset_top = 325.0
 offset_right = 205.0
-offset_bottom = 643.0
+offset_bottom = 715.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2")
 
-[node name="VBox" type="VBoxContainer" parent="HUD"]
+[node name="VBox" type="VBoxContainer" parent="HUD" unique_id=1958862446]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
@@ -100,353 +108,447 @@ offset_right = -8.0
 offset_bottom = -8.0
 theme_override_constants/separation = 8
 
-[node name="DayLabel" type="Label" parent="HUD/VBox"]
-text = "Day 1"
+[node name="DayLabel" type="Label" parent="HUD/VBox" unique_id=963949795]
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
-mouse_filter = 2
+text = "Day 1"
 
-[node name="Separator" type="HSeparator" parent="HUD/VBox"]
+[node name="Separator" type="HSeparator" parent="HUD/VBox" unique_id=1495369916]
 modulate = Color(0.4, 0.45, 0.65, 1)
+layout_mode = 2
 
-[node name="ActionsLabel" type="Label" parent="HUD/VBox"]
+[node name="ActionsLabel" type="Label" parent="HUD/VBox" unique_id=1484686909]
+layout_mode = 2
 text = "Actions: --"
-mouse_filter = 2
 
-[node name="MoraleLabel" type="Label" parent="HUD/VBox"]
+[node name="MoraleLabel" type="Label" parent="HUD/VBox" unique_id=73234026]
+layout_mode = 2
 text = "Morale: --"
-mouse_filter = 2
 
-[node name="RemainingLabel" type="Label" parent="HUD/VBox"]
+[node name="RemainingLabel" type="Label" parent="HUD/VBox" unique_id=1730330692]
+layout_mode = 2
 text = "Discard: --"
-mouse_filter = 2
 
-[node name="HSep2" type="HSeparator" parent="HUD/VBox"]
+[node name="HSep2" type="HSeparator" parent="HUD/VBox" unique_id=431262562]
 modulate = Color(0.4, 0.45, 0.65, 0.5)
+layout_mode = 2
 
-[node name="WeatherLabel" type="Label" parent="HUD/VBox"]
+[node name="WeatherLabel" type="Label" parent="HUD/VBox" unique_id=1762681277]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
 text = "Weather: --"
-theme_override_font_sizes/font_size = 11
-mouse_filter = 2
 
-[node name="PhaseLabel" type="Label" parent="HUD/VBox"]
+[node name="PhaseLabel" type="Label" parent="HUD/VBox" unique_id=1061595710]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
 text = "Phase: --"
-theme_override_font_sizes/font_size = 11
-mouse_filter = 2
 
-[node name="TraumaLabel" type="Label" parent="HUD/VBox"]
+[node name="TraumaLabel" type="Label" parent="HUD/VBox" unique_id=1334575897]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
 text = "Traumas: 0"
-theme_override_font_sizes/font_size = 11
-mouse_filter = 2
 
-[node name="SkillsLabel" type="Label" parent="HUD/VBox"]
+[node name="SkillsLabel" type="Label" parent="HUD/VBox" unique_id=459825337]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
 text = "Skills: 0"
-theme_override_font_sizes/font_size = 11
-mouse_filter = 2
 
-[node name="PositionLabel" type="Label" parent="HUD/VBox"]
+[node name="PositionLabel" type="Label" parent="HUD/VBox" unique_id=1637290764]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
 text = "Pos: --"
-theme_override_font_sizes/font_size = 11
-mouse_filter = 2
 
-[node name="CenterPanel" type="Control" parent="."]
+[node name="CenterPanel" type="Control" parent="." unique_id=614783322]
+anchors_preset = 0
 offset_left = 210.0
-offset_top = 360.0
-offset_right = 945.0
-offset_bottom = 643.0
+offset_top = 325.0
+offset_right = 1080.0
+offset_bottom = 715.0
 mouse_filter = 2
 
-[node name="AdventureRow" type="HBoxContainer" parent="CenterPanel"]
-offset_right = 735.0
-offset_bottom = 135.0
+[node name="AdventureRow" type="HBoxContainer" parent="CenterPanel" unique_id=1998748617]
+layout_mode = 0
+offset_right = 870.0
+offset_bottom = 175.0
+theme_override_constants/separation = 6
+
+[node name="AdventureSlot0" type="Panel" parent="CenterPanel/AdventureRow" unique_id=930817023]
+custom_minimum_size = Vector2(100, 160)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="HBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot0" unique_id=1550061791]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox" unique_id=2027013390]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(75, 0)
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox/Info" unique_id=505557845]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 9
+autowrap_mode = 3
+
+[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox/Info" unique_id=234578198]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+
+[node name="AdventureSlot1" type="Panel" parent="CenterPanel/AdventureRow" unique_id=1788323572]
+custom_minimum_size = Vector2(100, 160)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="HBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot1" unique_id=1528834058]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox" unique_id=1290876953]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(75, 0)
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox/Info" unique_id=1678862327]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 9
+autowrap_mode = 3
+
+[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox/Info" unique_id=1668594545]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+
+[node name="AdventureSlot2" type="Panel" parent="CenterPanel/AdventureRow" unique_id=904566359]
+custom_minimum_size = Vector2(100, 160)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3")
+
+[node name="VBox" type="HBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot2" unique_id=790816311]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox" unique_id=548665451]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(75, 0)
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+mouse_filter = 2
+
+[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox/Info" unique_id=1915450732]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 9
+autowrap_mode = 3
+
+[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox/Info" unique_id=785943563]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+
+[node name="HandRow" type="HBoxContainer" parent="CenterPanel" unique_id=1726416786]
+layout_mode = 0
+offset_top = 181.0
+offset_right = 870.0
+offset_bottom = 390.0
 theme_override_constants/separation = 5
 
-[node name="AdventureSlot0" type="Panel" parent="CenterPanel/AdventureRow"]
+[node name="HandSlot0" type="Panel" parent="CenterPanel/HandRow" unique_id=619179808]
+custom_minimum_size = Vector2(80, 190)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3")
 
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot0"]
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot0" unique_id=1121386944]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
+mouse_filter = 2
 theme_override_constants/separation = 2
-mouse_filter = 2
 
-[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot0/VBox" unique_id=2064264341]
+layout_mode = 2
 size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
 
-[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot0/VBox" unique_id=152781738]
 clip_contents = true
-mouse_filter = 2
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot0/VBox"]
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot0/VBox" unique_id=1557142949]
 custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="AdventureSlot1" type="Panel" parent="CenterPanel/AdventureRow"]
+[node name="HandSlot1" type="Panel" parent="CenterPanel/HandRow" unique_id=521979625]
+custom_minimum_size = Vector2(80, 190)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3")
 
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot1"]
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot1" unique_id=1911438183]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
+mouse_filter = 2
 theme_override_constants/separation = 2
-mouse_filter = 2
 
-[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot1/VBox" unique_id=319255638]
+layout_mode = 2
 size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
 
-[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot1/VBox" unique_id=1962412227]
 clip_contents = true
-mouse_filter = 2
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot1/VBox"]
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot1/VBox" unique_id=1235196033]
 custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="AdventureSlot2" type="Panel" parent="CenterPanel/AdventureRow"]
+[node name="HandSlot2" type="Panel" parent="CenterPanel/HandRow" unique_id=1735672584]
+custom_minimum_size = Vector2(80, 190)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3")
 
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/AdventureRow/AdventureSlot2"]
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot2" unique_id=1436244994]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
+mouse_filter = 2
 theme_override_constants/separation = 2
-mouse_filter = 2
 
-[node name="CardArt" type="TextureRect" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot2/VBox" unique_id=1479100768]
+layout_mode = 2
 size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
 
-[node name="CardTitle" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot2/VBox" unique_id=886803952]
 clip_contents = true
-mouse_filter = 2
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="CardNav" type="Label" parent="CenterPanel/AdventureRow/AdventureSlot2/VBox"]
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot2/VBox" unique_id=1178483256]
 custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="HandRow" type="HBoxContainer" parent="CenterPanel"]
-offset_top = 140.0
-offset_right = 735.0
-offset_bottom = 283.0
-theme_override_constants/separation = 5
-
-[node name="HandSlot0" type="Panel" parent="CenterPanel/HandRow"]
+[node name="HandSlot3" type="Panel" parent="CenterPanel/HandRow" unique_id=237639241]
+custom_minimum_size = Vector2(80, 190)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3")
 
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot0"]
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot3" unique_id=29657178]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
+mouse_filter = 2
 theme_override_constants/separation = 2
-mouse_filter = 2
 
-[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot0/VBox"]
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot3/VBox" unique_id=14014431]
+layout_mode = 2
 size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
 
-[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot0/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot3/VBox" unique_id=507000434]
 clip_contents = true
-mouse_filter = 2
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot0/VBox"]
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot3/VBox" unique_id=88260527]
 custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="HandSlot1" type="Panel" parent="CenterPanel/HandRow"]
+[node name="HandSlot4" type="Panel" parent="CenterPanel/HandRow" unique_id=1584495011]
+custom_minimum_size = Vector2(80, 190)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3")
 
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot1"]
+[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot4" unique_id=639038515]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
+mouse_filter = 2
 theme_override_constants/separation = 2
-mouse_filter = 2
 
-[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot1/VBox"]
+[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot4/VBox" unique_id=49280823]
+layout_mode = 2
 size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
+mouse_filter = 1
+expand_mode = 1
+stretch_mode = 5
 
-[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot1/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
+[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot4/VBox" unique_id=2056412153]
 clip_contents = true
-mouse_filter = 2
-
-[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot1/VBox"]
-custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
-
-[node name="HandSlot2" type="Panel" parent="CenterPanel/HandRow"]
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_3")
-
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
-theme_override_constants/separation = 2
-mouse_filter = 2
-
-[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot2/VBox"]
-size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
-
-[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot2/VBox"]
 custom_minimum_size = Vector2(0, 18)
-text = ""
-clip_contents = true
-mouse_filter = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot2/VBox"]
+[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot4/VBox" unique_id=723989550]
 custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
 
-[node name="HandSlot3" type="Panel" parent="CenterPanel/HandRow"]
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_3")
-
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
-theme_override_constants/separation = 2
-mouse_filter = 2
-
-[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot3/VBox"]
-size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
-
-[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot3/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
-clip_contents = true
-mouse_filter = 2
-
-[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot3/VBox"]
-custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
-
-[node name="HandSlot4" type="Panel" parent="CenterPanel/HandRow"]
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_3")
-
-[node name="VBox" type="VBoxContainer" parent="CenterPanel/HandRow/HandSlot4"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
-theme_override_constants/separation = 2
-mouse_filter = 2
-
-[node name="CardArt" type="TextureRect" parent="CenterPanel/HandRow/HandSlot4/VBox"]
-size_flags_vertical = 3
-expand_mode = 4
-stretch_mode = 6
-mouse_filter = 2
-
-[node name="CardTitle" type="Label" parent="CenterPanel/HandRow/HandSlot4/VBox"]
-custom_minimum_size = Vector2(0, 18)
-text = ""
-clip_contents = true
-mouse_filter = 2
-
-[node name="CardNav" type="Label" parent="CenterPanel/HandRow/HandSlot4/VBox"]
-custom_minimum_size = Vector2(0, 16)
-text = ""
-mouse_filter = 2
-
-[node name="ActionButtons" type="VBoxContainer" parent="."]
-offset_left = 950.0
-offset_top = 360.0
-offset_right = 1147.0
-offset_bottom = 643.0
+[node name="ActionButtons" type="VBoxContainer" parent="." unique_id=487067101]
+layout_mode = 0
+offset_left = 1085.0
+offset_top = 325.0
+offset_right = 1275.0
+offset_bottom = 715.0
 theme_override_constants/separation = 8
 
-[node name="DrawBtn" type="Button" parent="ActionButtons"]
+[node name="DrawBtn" type="Button" parent="ActionButtons" unique_id=539215197]
+layout_mode = 2
 size_flags_vertical = 3
 text = "Draw"
 
-[node name="SwapBtn" type="Button" parent="ActionButtons"]
+[node name="SwapBtn" type="Button" parent="ActionButtons" unique_id=992379261]
+layout_mode = 2
 size_flags_vertical = 3
 text = "Swap"
 
-[node name="NavigateBtn" type="Button" parent="ActionButtons"]
+[node name="NavigateBtn" type="Button" parent="ActionButtons" unique_id=176966754]
+layout_mode = 2
 size_flags_vertical = 3
 text = "Navigate"
 
-[node name="EndTurnBtn" type="Button" parent="ActionButtons"]
+[node name="EndTurnBtn" type="Button" parent="ActionButtons" unique_id=872104176]
+layout_mode = 2
 size_flags_vertical = 3
 text = "End Turn"
 
-[node name="GameStateManager" type="Node" parent="."]
+[node name="CardPreview" type="Control" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+mouse_filter = 2
+
+[node name="PreviewBg" type="ColorRect" parent="CardPreview"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.72)
+mouse_filter = 2
+
+[node name="PreviewCard" type="TextureRect" parent="CardPreview"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -224.0
+offset_right = 160.0
+offset_bottom = 224.0
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+
+[node name="GameStateManager" type="Node" parent="." unique_id=1696508513]
 script = ExtResource("2_gsm")
 
-[node name="GameStateMachine" type="Node" parent="."]
+[node name="GameStateMachine" type="Node" parent="." unique_id=1483702432]
 script = ExtResource("3_fsm")
